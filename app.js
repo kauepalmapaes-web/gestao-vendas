@@ -10,6 +10,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- Module Imports ---
 import { renderDashboard } from './modules/dashboard.js';
+import { renderAgenda } from './modules/agenda.js';
 import { renderClientes } from './modules/clientes.js';
 import { renderProntuarios } from './modules/prontuarios.js';
 import { renderVendas } from './modules/vendas.js';
@@ -77,6 +78,7 @@ supabase.auth.onAuthStateChange((_event, session) => {
 // --- Router ---
 const routes = {
   dashboard: { title: 'Dashboard', render: renderDashboard },
+  agenda: { title: 'Agenda', render: renderAgenda },
   clientes: { title: 'Clientes', render: renderClientes },
   prontuarios: { title: 'Prontuários', render: renderProntuarios },
   vendas: { title: 'Vendas', render: renderVendas },
