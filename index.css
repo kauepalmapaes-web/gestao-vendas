@@ -239,6 +239,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 0; /* CRITICAL: Allows flex children to shrink below content size */
   transition: margin-left var(--transition-base);
 }
 
@@ -319,6 +320,8 @@ body {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
 }
 
 /* ---------- Cards ---------- */
@@ -330,6 +333,7 @@ body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transition: all var(--transition-base);
+  min-width: 0;
 }
 
 .card:hover {
