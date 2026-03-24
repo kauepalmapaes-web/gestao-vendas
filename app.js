@@ -104,6 +104,8 @@ function navigate(page) {
 
   // Close sidebar on mobile
   document.getElementById('sidebar').classList.remove('open');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (overlay) overlay.classList.remove('active');
 }
 
 // --- Modal System ---
@@ -189,7 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile menu toggle
   document.getElementById('menu-toggle').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('open');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) overlay.classList.toggle('active');
   });
+
+  // Mobile sidebar overlay click
+  const overlay = document.getElementById('sidebar-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      overlay.classList.remove('active');
+    });
+  }
 
   // Modal close
   document.getElementById('modal-close').addEventListener('click', closeModal);

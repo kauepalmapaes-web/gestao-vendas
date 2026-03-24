@@ -93,8 +93,25 @@ body {
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  transition: width var(--transition-base);
+  transition: transform var(--transition-base), width var(--transition-base);
   overflow: hidden;
+}
+
+/* Sidebar Overlay for Mobile */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 140;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
 }
 
 .sidebar-brand {
@@ -404,6 +421,7 @@ body {
   font-weight: 800;
   line-height: 1;
   margin-bottom: 6px;
+  word-break: break-word;
 }
 
 .kpi-label {
@@ -994,6 +1012,7 @@ tbody tr:last-child td {
   .sidebar {
     transform: translateX(-100%);
     z-index: 150;
+    box-shadow: var(--shadow-lg); /* Add shadow so it floats above content nicely */
   }
 
   .sidebar.open {
@@ -1010,6 +1029,17 @@ tbody tr:last-child td {
 
   .kpi-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  
+  .kpi-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .kpi-value {
+    font-size: 1.4rem;
   }
 
   .form-row {
@@ -1035,6 +1065,24 @@ tbody tr:last-child td {
   .filter-bar .form-select {
     width: 100%;
   }
+  
+  /* Tables horizontally scrollable but cells padded better */
+  thead th, tbody td {
+    padding: 10px 12px;
+  }
+  
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .brand-name {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1044,6 +1092,10 @@ tbody tr:last-child td {
 
   .content-area {
     padding: 16px;
+  }
+  
+  .kpi-value {
+    font-size: 1.6rem;
   }
 }
 
@@ -1133,6 +1185,7 @@ tbody tr:last-child td {
   font-weight: 700;
   background: var(--gradient-brand);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 8px;
 }
