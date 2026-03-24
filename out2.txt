@@ -1,0 +1,18 @@
+Login ilash@gestaopro.com.br: {
+  code: 500,
+  error_code: 'unexpected_failure',
+  msg: 'Database error querying schema',
+  error_id: '9e17950b206ee5a7-GRU'
+}
+Login kauekurosaki@gestaopro.com.br: {
+  code: 500,
+  error_code: 'unexpected_failure',
+  msg: 'Database error querying schema',
+  error_id: '9e17950b31f44568-GRU'
+}
+Login juliaestetica@gestaopro.com.br: {
+  code: 500,
+  error_code: 'unexpected_failure',
+  msg: 'Database error querying schema',
+  error_id: '9e17950b35845402-GRU'
+}
