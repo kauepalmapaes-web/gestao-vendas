@@ -73,8 +73,8 @@ async function loadAgenda() {
   const dataFiltro = document.getElementById('filtro-data-agenda').value;
   if (!dataFiltro) return;
 
-  const startOfDay = \`\${dataFiltro}T00:00:00.000Z\`;
-  const endOfDay = \`\${dataFiltro}T23:59:59.999Z\`;
+  const startOfDay = `${dataFiltro}T00:00:00.000Z`;
+  const endOfDay = `${dataFiltro}T23:59:59.999Z`;
 
   const { data, error } = await window.db
     .from('agendamentos')
@@ -119,21 +119,21 @@ function renderTable() {
       'agendado': 'Agendado', 'concluido': 'Concluído', 'cancelado': 'Cancelado', 'no_show': 'Faltou'
     }[a.status] || a.status;
 
-    return \`
+    return `
       <tr>
-        <td class="font-bold">\${timeA} - \${timeB}</td>
+        <td class="font-bold">${timeA} - ${timeB}</td>
         <td>
-          <div class="font-bold">\${a.clientes ? a.clientes.nome : '—'}</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted);">\${a.clientes?.telefone || ''}</div>
+          <div class="font-bold">${a.clientes ? a.clientes.nome : '—'}</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">${a.clientes?.telefone || ''}</div>
         </td>
-        <td>\${a.servicos ? a.servicos.nome : '—'}</td>
-        <td><span class="badge badge-\${statusBadge}">\${statusDisplay}</span></td>
+        <td>${a.servicos ? a.servicos.nome : '—'}</td>
+        <td><span class="badge badge-${statusBadge}">${statusDisplay}</span></td>
         <td class="text-right">
-          <button class="btn-icon btn-concluir" data-id="\${a.id}" title="Marcar como Concluído e Gerar Venda" \${a.status === 'concluido' ? 'disabled style="opacity:0.3"' : ''}>✅</button>
-          <button class="btn-icon btn-cancelar" data-id="\${a.id}" title="Cancelar" \${a.status !== 'agendado' ? 'disabled style="opacity:0.3"' : ''}>❌</button>
+          <button class="btn-icon btn-concluir" data-id="${a.id}" title="Marcar como Concluído e Gerar Venda" ${a.status === 'concluido' ? 'disabled style="opacity:0.3"' : ''}>✅</button>
+          <button class="btn-icon btn-cancelar" data-id="${a.id}" title="Cancelar" ${a.status !== 'agendado' ? 'disabled style="opacity:0.3"' : ''}>❌</button>
         </td>
       </tr>
-    \`;
+    `;
   }).join('');
 
   // Attach actions
@@ -161,31 +161,31 @@ function renderTable() {
 }
 
 function openAgendamentoModal() {
-  const cliOptions = clientesData.map(c => \`<option value="\${c.id}">\${c.nome}</option>\`).join('');
-  const servOptions = servicosData.map(s => \`<option value="\${s.id}">\${s.nome} (\${window.formatCurrency(s.valor_padrao)})\option>\`).join('');
+  const cliOptions = clientesData.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
+  const servOptions = servicosData.map(s => `<option value="${s.id}">${s.nome} (${window.formatCurrency(s.valor_padrao)})</option>`).join('');
   
   // Default to the currently selected date in the filter
   const currentDate = document.getElementById('filtro-data-agenda').value || new Date().toISOString().split('T')[0];
 
-  const bodyHTML = \`
+  const bodyHTML = `
     <div class="form-group">
       <label class="form-label">Cliente</label>
       <select class="form-select" id="ag-cliente" required>
         <option value="">Selecione o Cliente</option>
-        \${cliOptions}
+        ${cliOptions}
       </select>
     </div>
     <div class="form-group">
       <label class="form-label">Serviço</label>
       <select class="form-select" id="ag-servico" required>
         <option value="">Selecione o Serviço</option>
-        \${servOptions}
+        ${servOptions}
       </select>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Data</label>
-        <input type="date" class="form-input" id="ag-data" value="\${currentDate}" required>
+        <input type="date" class="form-input" id="ag-data" value="${currentDate}" required>
       </div>
       <div class="form-group">
         <label class="form-label">Hora Início</label>
@@ -197,15 +197,19 @@ function openAgendamentoModal() {
       <input type="number" class="form-input" id="ag-duracao" value="60" required>
     </div>
     <div class="form-group">
+      <label class="form-label">E-mail da Gestora (Para Lembrete Google)</label>
+      <input type="email" class="form-input" id="ag-email" placeholder="Seu e-mail do Google (Opcional)">
+    </div>
+    <div class="form-group">
       <label class="form-label">Observações</label>
       <textarea class="form-textarea" id="ag-obs" placeholder="Ex: Cliente pediu confirmação de manhã"></textarea>
     </div>
-  \`;
+  `;
 
-  const footerHTML = \`
+  const footerHTML = `
     <button class="btn btn-secondary" onclick="window.closeModal()">Cancelar</button>
     <button class="btn btn-primary" id="btn-salvar-ag" style="gap:5px"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Salvar Agendamento</button>
-  \`;
+  `;
 
   window.openModal('Novo Agendamento', bodyHTML, footerHTML);
 
@@ -216,16 +220,21 @@ function openAgendamentoModal() {
     const horaInicio = document.getElementById('ag-hora-inicio').value;
     const duracao = parseInt(document.getElementById('ag-duracao').value) || 60;
     const obs = document.getElementById('ag-obs').value.trim();
+    const emailLembrete = document.getElementById('ag-email').value.trim();
 
     if (!cliente_id || !servico_id || !dataSplit || !horaInicio) {
       window.showToast('Preencha os campos obrigatórios', 'warning');
       return;
     }
 
+    // Get names for better webhook context
+    const clienteObj = clientesData.find(c => c.id == cliente_id);
+    const servicoObj = servicosData.find(s => s.id == servico_id);
+
     const { data: { user } } = await window.db.auth.getUser();
 
     // construct ISO timestamp
-    const startObj = new Date(\`\${dataSplit}T\${horaInicio}:00\`);
+    const startObj = new Date(`${dataSplit}T${horaInicio}:00`);
     const data_hora_inicio = startObj.toISOString();
     
     startObj.setMinutes(startObj.getMinutes() + duracao);
@@ -248,6 +257,26 @@ function openAgendamentoModal() {
       window.showToast('Agendado com sucesso!', 'success');
       window.closeModal();
       
+      // --- Make.com Webhook Integration ---
+      if (emailLembrete) {
+        try {
+          await fetch('https://hook.us2.make.com/16332tanvqip18f8tr1tjq9kcxmlc4ov', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              clienteNome: clienteObj ? clienteObj.nome : 'Cliente',
+              servicoNome: servicoObj ? servicoObj.nome : 'Serviço',
+              dataInicio: data_hora_inicio,
+              dataFim: data_hora_fim,
+              observacoes: obs,
+              emailDestino: emailLembrete
+            })
+          });
+        } catch (e) {
+          console.error("Erro disparando o webhook Make.com", e);
+        }
+      }
+
       // Update filter to the date chosen and reload
       document.getElementById('filtro-data-agenda').value = dataSplit;
       loadAgenda();
