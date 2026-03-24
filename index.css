@@ -1028,18 +1028,39 @@ tbody tr:last-child td {
   }
 
   .kpi-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+  
+  /* Horizontal KPI Card on Mobile */
+  .kpi-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+      "icon value"
+      "icon label";
+    align-items: center;
+    gap: 0 16px;
+    padding: 16px;
   }
   
   .kpi-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    grid-area: icon;
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    margin-bottom: 0;
   }
   
   .kpi-value {
-    font-size: 1.4rem;
+    grid-area: value;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+  
+  .kpi-label {
+    grid-area: label;
+    font-size: 0.85rem;
   }
 
   .form-row {
@@ -1093,16 +1114,8 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 480px) {
-  .kpi-grid {
-    grid-template-columns: 1fr;
-  }
-
   .content-area {
     padding: 12px; /* Reduce padding to give more room to content */
-  }
-  
-  .kpi-value {
-    font-size: 1.6rem;
   }
 
   .card {
@@ -1113,6 +1126,14 @@ tbody tr:last-child td {
   html, body {
     overflow-x: hidden;
     width: 100%;
+  }
+
+  /* Fix Sidebar Logout Spacing */
+  #btn-logout {
+    display: block;
+    margin-top: 6px !important;
+    padding-bottom: 8px;
+    font-weight: 600;
   }
 }
 
