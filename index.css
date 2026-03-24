@@ -1065,6 +1065,13 @@ tbody tr:last-child td {
   .filter-bar .form-select {
     width: 100%;
   }
+
+  /* Prevent Mobile Browser auto-zoom on inputs */
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important; /* Must be at least 16px for iOS */
+  }
   
   /* Tables horizontally scrollable but cells padded better */
   thead th, tbody td {
@@ -1091,11 +1098,21 @@ tbody tr:last-child td {
   }
 
   .content-area {
-    padding: 16px;
+    padding: 12px; /* Reduce padding to give more room to content */
   }
   
   .kpi-value {
     font-size: 1.6rem;
+  }
+
+  .card {
+    padding: 16px; /* Save horizontal space */
+  }
+
+  /* Further prevent any x-axis overflow zooming */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 
