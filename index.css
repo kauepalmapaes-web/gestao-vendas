@@ -1092,6 +1092,16 @@ tbody tr:last-child td {
     align-items: stretch;
   }
 
+  /* Touch Targets for Mobile Accessibility */
+  .btn, 
+  .nav-item, 
+  .menu-toggle, 
+  .modal-close,
+  .form-select,
+  .form-input {
+    min-height: 48px;
+  }
+  
   .filter-bar .form-input,
   .filter-bar .form-select {
     width: 100%;
@@ -1104,14 +1114,20 @@ tbody tr:last-child td {
     font-size: 16px !important; /* Must be at least 16px for iOS */
   }
   
+  /* Prevent body level horizontal overflow cleanly */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   /* Tables horizontally scrollable but cells padded better */
   thead th, tbody td {
-    padding: 10px 12px;
+    padding: 12px;
   }
   
   .btn-icon {
-    width: 32px;
-    height: 32px;
+    width: 44px; /* Better touch target */
+    height: 44px;
   }
   
   .brand-icon {
